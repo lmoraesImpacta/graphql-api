@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { upperDirectiveTransformer } from './common/directives/upper-case.directive';
 import { RecipesModule } from './recipes/recipes.module';
+// import cors from 'cors';
 
 @Module({
   imports: [
@@ -23,13 +24,12 @@ import { RecipesModule } from './recipes/recipes.module';
 
       },
     }),
-    GraphQLModule.forRoot({
-      cors: {
-        origin: '*',
-        credentials: true,
-      },
-    }),
-
+    // GraphQLModule.forRoot({
+    //   cors: {
+    //     origin: '*',
+    //     credentials: true,
+    //   },
+    // }),
   ],
 })
 export class AppModule {}
