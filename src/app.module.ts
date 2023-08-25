@@ -20,8 +20,16 @@ import { RecipesModule } from './recipes/recipes.module';
             locations: [DirectiveLocation.FIELD_DEFINITION],
           }),
         ],
+
       },
     }),
+    GraphQLModule.forRoot({
+      cors: {
+        origin: '*',
+        credentials: true,
+      },
+    }),
+
   ],
 })
 export class AppModule {}
