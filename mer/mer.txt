@@ -1,0 +1,24 @@
+usuario/cliente
+	id
+	name
+	email
+	password
+	active
+pedido
+	id
+	client_Id
+	dt_Insert
+	dt_Conclusion
+	total_Value
+itemPedido
+	sk_Id_Item_Pedido
+	pedido_Id
+	product_Id
+	quantity
+	total_Value
+produto
+	id
+	name
+	description
+	value
+	active
