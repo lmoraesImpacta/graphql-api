@@ -8,6 +8,7 @@ import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 // import { DataSource } from 'typeorm';
 import { OwnersModule } from './owners/owners.module';
 import { UserModule } from './user/user.module';
+import { PedidoModule } from './pedido/pedido.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { UserModule } from './user/user.module';
     }),
     PetModule,
     OwnersModule,
-    UserModule
+    UserModule,
+    PedidoModule
   ],
 })
 export class AppModule {}

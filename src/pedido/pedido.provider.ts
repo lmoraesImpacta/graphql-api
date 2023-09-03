@@ -2,9 +2,9 @@ import { DataSource } from "typeorm";
 import { Pedido } from "./pedido.entity";
 
 
-export const userProvider = [
+export const pedidoProvider = [
     {
-      provide: 'USER_REPOSITORY',
+      provide: 'PEDIDO_REPOSITORY',
       useFactory: (dataSource: DataSource) => dataSource.getRepository(Pedido),
       inject: ['DATA_SOURCE'],
     },
