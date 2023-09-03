@@ -16,6 +16,29 @@ type Pet {
   owner: Owner!
 }
 
+type User {
+  id: Int!
+  name: String!
+  email: String!
+  password: String!
+  active: Int!
+  pedidos: [Pedido!]
+}
+
+type Pedido {
+  id: Int!
+  client_Id: Int!
+  dt_Insert: DateTime!
+  dt_Conclusion: DateTime!
+  total_Value: Float!
+  user: User!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
   pets: [Pet!]!
   getPet(id: Int!): Pet!

@@ -1,6 +1,7 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { BeforeInsert, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { hash, compare } from "bcryptjs";
+import { Pedido } from 'src/pedido/pedido.entity';
 
 @ObjectType()
 @Entity()
@@ -41,10 +42,13 @@ export class User{
         type: "bit",
         unique: false,
         nullable: false,
-        default: 1
     })
     @Field(type => Int)
     active: number;
+
+    @OneToMany(() => Pedido, pedido => pedido.user)
+    @Field(type => [Pedido], {nullable: true})
+    pedidos?: Pedido[];
 
 
     //Hash da senha sera necessario? Marcello Fontes 02/09/2023
