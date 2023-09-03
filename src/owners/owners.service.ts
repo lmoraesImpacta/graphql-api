@@ -27,7 +27,6 @@ export class OwnersService {
     return this.ownerRepository.save(newOwner);
   }
 
-
   findOne(id: number):Promise<Owner>{
 
     return this.ownerRepository.findOneByOrFail({id});

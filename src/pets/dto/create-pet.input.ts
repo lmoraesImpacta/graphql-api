@@ -6,8 +6,7 @@ export class CreatePetInput{
     @IsAlpha()
     @Field()
     name: string;
-
-
+    
     @Field({nullable:true})
     type?: string;
 

@@ -16,13 +16,32 @@ type Pet {
   owner: Owner!
 }
 
+type Produto {
+  id: Int!
+  name: String!
+  description: String!
+  value: Float!
+  ItensPedido: [ItemPedido!]
+}
+
+type ItemPedido {
+  id: Int!
+  quantity: Int!
+  totalValue: Float!
+  uniqueValue: Float!
+  pedidoId: Int!
+  pedido: Pedido!
+  produtoId: Int!
+  produto: Produto!
+}
+
 type Pedido {
   id: Int!
   dt_Insert: DateTime!
-  dt_Conclusion: DateTime!
   total_Value: Float!
   userId: Int!
   user: User!
+  ItensPedido: [ItemPedido!]
 }
 
 """
@@ -46,6 +65,8 @@ type Query {
   owner(id: Int!): Owner!
   users: [User!]!
   pedidos: [Pedido!]!
+  produtos: [Produto!]!
+  itemPedidos: [ItemPedido!]!
 }
 
 type Mutation {
@@ -55,6 +76,8 @@ type Mutation {
   updateUser(id: Int!, updateUserInput: UpdateUserInput!): User!
   deleteUser(id: Int!, deleteUserInput: DeleteUserInput!): User!
   createPedido(createPedidoInput: CreatePedidoInput!): Pedido!
+  createProduto(createProdutoInput: CreateProdutoInput!): Produto!
+  createItemPedido(createItemPedidoInput: CreateItemPedidoInput!): ItemPedido!
 }
 
 input CreatePetInput {
@@ -91,4 +114,18 @@ input DeleteUserInput {
 input CreatePedidoInput {
   dt_Insert: DateTime!
   userId: Int!
+}
+
+input CreateProdutoInput {
+  name: String!
+  description: String!
+  value: Float!
+}
+
+input CreateItemPedidoInput {
+  quantity: Int!
+  totalValue: Float!
+  uniqueValue: Float!
+  pedidoId: Int!
+  produtoId: Int!
 }

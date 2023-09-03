@@ -9,6 +9,8 @@ import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { OwnersModule } from './owners/owners.module';
 import { UserModule } from './user/user.module';
 import { PedidoModule } from './pedido/pedido.module';
+import { ProdutoModule } from './produto/produto.module';
+import { ItemPedidoModule } from './itemPedido/itemPedido.module';
 
 @Module({
   imports: [
@@ -19,7 +21,9 @@ import { PedidoModule } from './pedido/pedido.module';
     PetModule,
     OwnersModule,
     UserModule,
-    PedidoModule
+    PedidoModule,
+    ProdutoModule,
+    ItemPedidoModule
   ],
 })
 export class AppModule {}

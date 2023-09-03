@@ -1,15 +1,9 @@
 import { Resolver, Query, Mutation, Args, Int} from "@nestjs/graphql";
 import { User } from "./user.entity";
 import { UserService } from "./user.service";
-import { Pet } from "src/pets/pet.entity";
 import { CreateUserInput } from "./dto/create-user.input";
 import { UpdateUserInput } from "./dto/update-user.input";
 import { DeleteUserInput } from "./dto/delete-user.input";
-// import { Query } from "@nestjs/common";
-
-
-
-
 @Resolver(of => User)
 export class UserResolver{
 
@@ -21,28 +15,28 @@ export class UserResolver{
     }
 
     @Mutation(returns => User)
-    createUser(@Args('createUserInput')createUserInput: CreateUserInput):Promise<User>{
+    createUser(
+            @Args('createUserInput')
+            createUserInput: CreateUserInput
+        ):Promise<User>{
         return this.userService.createUser(createUserInput);
     }
 
-
     @Mutation(returns => User)
     updateUser(
-        @Args('id', {type: () => Int}) id: number,
-        @Args('updateUserInput')updateUserInput:UpdateUserInput):Promise<User> {
-        
+            @Args('id', {type: () => Int}) id: number,
+            @Args('updateUserInput')updateUserInput:UpdateUserInput
+        ):Promise<User> {
             return this.userService.updateUser(id,updateUserInput);
     
     }
 
-
     @Mutation(returns => User)
     deleteUser(
-        @Args('id', {type: () => Int}) id: number,
-        @Args('deleteUserInput')deleteUserInput:DeleteUserInput):Promise<User>{
+            @Args('id', {type: () => Int}) id: number,
+            @Args('deleteUserInput')deleteUserInput:DeleteUserInput
+        ):Promise<User>{
             return this.userService.deleteUser(id,deleteUserInput);
         }
     
-
-
 }
