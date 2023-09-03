@@ -7,6 +7,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 // import { DataSource } from 'typeorm';
 import { OwnersModule } from './owners/owners.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { OwnersModule } from './owners/owners.module';
     }),
     PetModule,
     OwnersModule,
+    UserModule
   ],
 })
 export class AppModule {}
