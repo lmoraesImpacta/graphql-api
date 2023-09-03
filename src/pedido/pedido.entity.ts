@@ -1,7 +1,7 @@
 import { Int,Field, ObjectType } from "@nestjs/graphql"
+import { ItemPedido } from "src/itemPedido/itemPedido.entity";
 import { User } from "src/user/user.entity";
-// import { type } from "os"
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 
 @ObjectType()
 @Entity()
@@ -10,8 +10,6 @@ export class Pedido{
     @PrimaryGeneratedColumn()
     @Field(type => Int)
     id: number;
-
-
 
     @Column({
         type: "datetime",
@@ -23,21 +21,12 @@ export class Pedido{
     dt_Insert: Date;
 
     @Column({
-        type: "datetime",
-        unique: false,
-        nullable: true, 
-    })
-    @Field()
-    dt_Conclusion: Date;
-
-    @Column({
         type: "float",
         unique: false,
         nullable: true
     })
     @Field()
     total_Value: number;
-
 
     @Column()
     @Field(type => Int)
@@ -46,5 +35,9 @@ export class Pedido{
     @ManyToOne(() => User, user => user.pedidos)
     @Field(type => User)
     user: User
+
+    @OneToMany(() => ItemPedido, itemPedido => itemPedido.pedido)
+    @Field(type => [ItemPedido], {nullable: true})
+    ItensPedido?: ItemPedido[];
 
 }

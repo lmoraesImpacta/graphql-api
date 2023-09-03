@@ -14,7 +14,6 @@ export class PetsResolver{
         return this.petService.findAll()
     }
 
-
     @Mutation(returns => Pet)
     createPet(@Args('createPetInput')createPetInput: CreatePetInput): Promise<Pet>{
         return this.petService.createPet(createPetInput);

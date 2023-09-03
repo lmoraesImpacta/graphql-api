@@ -17,11 +17,9 @@ export class PedidoService{
 
     createPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido>{
         const  newPedido = this.pedidoRepository.create(createPedidoInput);
-    
 
         return this.pedidoRepository.save(newPedido);
     }
 
 
-    //Primeiro instanste
 }
