@@ -11,13 +11,7 @@ export class Pedido{
     @Field(type => Int)
     id: number;
 
-    @Column({
-        type: "int",
-        unique: false,
-        nullable: false
-    })
-    @Field(type => Int)
-    client_Id: number;
+
 
     @Column({
         type: "datetime",
@@ -44,6 +38,11 @@ export class Pedido{
     @Field()
     total_Value: number;
 
+
+    @Column()
+    @Field(type => Int)
+    userId: number;
+    
     @ManyToOne(() => User, user => user.pedidos)
     @Field(type => User)
     user: User

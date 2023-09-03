@@ -18,10 +18,10 @@ type Pet {
 
 type Pedido {
   id: Int!
-  client_Id: Int!
   dt_Insert: DateTime!
   dt_Conclusion: DateTime!
   total_Value: Float!
+  userId: Int!
   user: User!
 }
 
@@ -45,6 +45,7 @@ type Query {
   owners: [Owner!]!
   owner(id: Int!): Owner!
   users: [User!]!
+  pedidos: [Pedido!]!
 }
 
 type Mutation {
@@ -53,6 +54,7 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(id: Int!, updateUserInput: UpdateUserInput!): User!
   deleteUser(id: Int!, deleteUserInput: DeleteUserInput!): User!
+  createPedido(createPedidoInput: CreatePedidoInput!): Pedido!
 }
 
 input CreatePetInput {
@@ -84,4 +86,9 @@ input DeleteUserInput {
   email: String
   password: String
   active: Int!
+}
+
+input CreatePedidoInput {
+  dt_Insert: DateTime!
+  userId: Int!
 }

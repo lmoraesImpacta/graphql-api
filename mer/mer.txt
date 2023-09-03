@@ -6,10 +6,10 @@ usuario/cliente
 	active
 pedido
 	id
-	client_Id
 	dt_Insert
 	dt_Conclusion
 	total_Value
+	userId
 itemPedido
 	sk_Id_Item_Pedido
 	pedido_Id
@@ -22,3 +22,5 @@ produto
 	description
 	value
 	active
+
+	https://docs.google.com/spreadsheets/d/1iw5tBWWgHLSDIltv0cSAZELFpIV0xf2DiOzUETT3QQU/edit?usp=sharing
