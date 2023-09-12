@@ -77,6 +77,8 @@ type Mutation {
   deleteUser(id: Int!, deleteUserInput: DeleteUserInput!): User!
   createPedido(createPedidoInput: CreatePedidoInput!): Pedido!
   createProduto(createProdutoInput: CreateProdutoInput!): Produto!
+  updateProduto(id: Int!, updateProdutoInput: UpdateProdutoInput!): Produto!
+  deleteProduto(id: Int!): [Produto!]!
   createItemPedido(createItemPedidoInput: CreateItemPedidoInput!): ItemPedido!
 }
 
@@ -117,6 +119,12 @@ input CreatePedidoInput {
 }
 
 input CreateProdutoInput {
+  name: String!
+  description: String!
+  value: Float!
+}
+
+input UpdateProdutoInput {
   name: String!
   description: String!
   value: Float!

@@ -16,17 +16,11 @@ export class ItemPedidoService{
         return this.itemPedidoRepository.find();
     }
 
-    
     createItemPedido(createItemPedidoInput: CreateItemPedidoInput): Promise<ItemPedido>{
         const newItemPedido = this.itemPedidoRepository.create(createItemPedidoInput);
 
         return this.itemPedidoRepository.save(newItemPedido);
     }
-
-
-
-    
-
 
 }
 
