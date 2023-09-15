@@ -30,10 +30,14 @@ export class ProdutoService{
 
     }
 
-    async deleteProduto(id: number):Promise<Produto[]>{
+    async deleteProduto(id: number){
+
+
         await this.produtoRepository.delete(id);
 
-        return this.produtoRepository.find()
+        //
+
+
 
 
     }

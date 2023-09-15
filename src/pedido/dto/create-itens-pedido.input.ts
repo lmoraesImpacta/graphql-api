@@ -4,16 +4,11 @@ import { User } from "src/user/user.entity";
 
 
 @InputType()
-export class CreatePedidoInput{
-
-    @Field()
-    dt_Insert: Date;
-
-    @Field(type=> Int)
-    userId: number;
+export class CreateItensPedidoInput{
 
 
-
+    @Field((type) => GraphQLJSON)
+    produtos: JSON;
 
 
 }

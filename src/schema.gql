@@ -2,14 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  id: Int!
-  name: String!
-  email: String!
-  password: String!
-  active: Int!
-}
-
 type Owner {
   id: Int!
   name: String!
@@ -35,8 +27,6 @@ type Produto {
 type ItemPedido {
   id: Int!
   quantity: Int!
-  totalValue: Float!
-  uniqueValue: Float!
   pedidoId: Int!
   pedido: Pedido!
   produtoId: Int!
@@ -83,10 +73,10 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(id: Int!, updateUserInput: UpdateUserInput!): User!
   deleteUser(id: Int!, deleteUserInput: DeleteUserInput!): User!
-  createPedido(createPedidoInput: CreatePedidoInput!): Pedido!
+  createPedido(createPedidoInput: CreatePedidoInput!, createItensPedidoInput: CreateItensPedidoInput!): Pedido!
   createProduto(createProdutoInput: CreateProdutoInput!): Produto!
   updateProduto(id: Int!, updateProdutoInput: UpdateProdutoInput!): Produto!
-  deleteProduto(id: Int!): [Produto!]!
+  deleteProduto(id: Int!): Produto!
   createItemPedido(createItemPedidoInput: CreateItemPedidoInput!): ItemPedido!
 }
 
@@ -125,6 +115,15 @@ input CreatePedidoInput {
   dt_Insert: DateTime!
   userId: Int!
 }
+
+input CreateItensPedidoInput {
+  produtos: JSON!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 input CreateProdutoInput {
   name: String!
