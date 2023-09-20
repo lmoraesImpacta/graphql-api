@@ -2,14 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  id: Int!
-  name: String!
-  email: String!
-  password: String!
-  active: Int!
-}
-
 type Owner {
   id: Int!
   name: String!
@@ -35,8 +27,6 @@ type Produto {
 type ItemPedido {
   id: Int!
   quantity: Int!
-  totalValue: Float!
-  uniqueValue: Float!
   pedidoId: Int!
   pedido: Pedido!
   produtoId: Int!
@@ -86,7 +76,7 @@ type Mutation {
   createPedido(createPedidoInput: CreatePedidoInput!): Pedido!
   createProduto(createProdutoInput: CreateProdutoInput!): Produto!
   updateProduto(id: Int!, updateProdutoInput: UpdateProdutoInput!): Produto!
-  deleteProduto(id: Int!): [Produto!]!
+  deleteProduto(id: Int!): Produto!
   createItemPedido(createItemPedidoInput: CreateItemPedidoInput!): ItemPedido!
 }
 
@@ -124,6 +114,13 @@ input DeleteUserInput {
 input CreatePedidoInput {
   dt_Insert: DateTime!
   userId: Int!
+  itensDoPedido: [ItemPedidoInputTeste!]!
+}
+
+input ItemPedidoInputTeste {
+  pedidoId: Int!
+  produtoId: Int!
+  quantity: Int!
 }
 
 input CreateProdutoInput {
