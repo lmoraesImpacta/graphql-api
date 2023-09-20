@@ -18,8 +18,9 @@ export class PedidoResolver{
     @Mutation(returns => Pedido)
     createPedido(
         @Args('createPedidoInput')createPedidoInput: CreatePedidoInput,
-        @Args('createItensPedidoInput')createItensPedidoInput: CreateItensPedidoInput): Promise<Pedido>{
-        return this.pedidoService.createPedido(createPedidoInput,createItensPedidoInput);
+        // @Args('createItensPedidoInput')createItensPedidoInput: CreateItensPedidoInput)
+        ): Promise<Pedido>{
+        return this.pedidoService.createPedido(createPedidoInput);
     }
 
 }

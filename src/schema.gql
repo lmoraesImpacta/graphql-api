@@ -73,7 +73,7 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(id: Int!, updateUserInput: UpdateUserInput!): User!
   deleteUser(id: Int!, deleteUserInput: DeleteUserInput!): User!
-  createPedido(createPedidoInput: CreatePedidoInput!, createItensPedidoInput: CreateItensPedidoInput!): Pedido!
+  createPedido(createPedidoInput: CreatePedidoInput!): Pedido!
   createProduto(createProdutoInput: CreateProdutoInput!): Produto!
   updateProduto(id: Int!, updateProdutoInput: UpdateProdutoInput!): Produto!
   deleteProduto(id: Int!): Produto!
@@ -114,16 +114,14 @@ input DeleteUserInput {
 input CreatePedidoInput {
   dt_Insert: DateTime!
   userId: Int!
+  itensDoPedido: [ItemPedidoInputTeste!]!
 }
 
-input CreateItensPedidoInput {
-  produtos: JSON!
+input ItemPedidoInputTeste {
+  pedidoId: Int!
+  produtoId: Int!
+  quantity: Int!
 }
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
 
 input CreateProdutoInput {
   name: String!

@@ -20,37 +20,17 @@ export class PedidoService{
         return this.pedidoRepository.find();
     }
 
-    async createPedido(createPedidoInput: CreatePedidoInput, createItensPedidoInput:CreateItensPedidoInput):Promise<Pedido>{
+    async createPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido>{
 
-        // interface DadosIniais {
-        //     dt_Insert: Date;
-        //     userId: number;
-        //   }
-        // let dadosIniciais: Array<DadosIniais>;  
+        const newPedido = this.pedidoRepository.create(createPedidoInput);
 
-        // dadosIniciais = [{dt_Insert: createPedidoInput.dt_Insert, userId: createPedidoInput.userId}];
+        //insere e pega o id inserido MArcello Fonte 19/09/2023
+        let lastPedidoId = (await this.pedidoRepository.insert(newPedido)).generatedMaps[0];
 
-        // let teste = Promise.resolve(dadosIniciais);
-        // return createPedidoInput;
-
-        let produtosAdicionados: Array<Produto>;
-
-        const  newPedido = this.pedidoRepository.create(createPedidoInput);
+        return newPedido;
 
 
-        const ultimoPedido =  this.pedidoRepository.save(newPedido);
 
-        const ultimoPedidoId = (await ultimoPedido).id;
-
-        let  produtos = createItensPedidoInput.produtos;
-
-        let produtosEmArray =  JSON.parse(produtos.toString());
-
-        produtosEmArray.forEach(function (produto) {
-            produtosAdicionados.push(produto);
-        });
-
-        return ultimoPedido;
     }
 
     // async adicionaItemAoPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido>{
