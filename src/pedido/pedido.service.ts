@@ -4,16 +4,21 @@ import { Pedido } from "./pedido.entity";
 import { CreatePedidoInput } from "./dto/create-pedido.input";
 import { Produto } from "src/produto/produto.entity";
 import { CreateItensPedidoInput } from "./dto/create-itens-pedido.input";
+import { ItemPedidoService } from "src/itemPedido/itemPedido.service";
+import { ItemPedido } from "src/itemPedido/itemPedido.entity";
 
 @Injectable()
 export class PedidoService{
 
     constructor(
+
         @Inject('PEDIDO_REPOSITORY')
         private pedidoRepository: Repository<Pedido>,
 
-        // @Inject('PRODUTO_REPOSITORY')
-        // private produtoRepository: Repository<Produto>
+        @Inject('ITEM_PEDIDO_REPOSITORY')
+        private itemPedidoRepository: Repository<ItemPedido>
+
+
     ){}
 
     async findAll(): Promise<Pedido[]>{
@@ -27,6 +32,27 @@ export class PedidoService{
         //insere e pega o id inserido MArcello Fonte 19/09/2023
         let lastPedidoId = (await this.pedidoRepository.insert(newPedido)).generatedMaps[0];
 
+        //Instanciando o item pedido repository fora por que dentro do foreach não cosnegui  Marcello Fontes 22/09/2023
+        let itemPedidoRepo = this.itemPedidoRepository;
+
+        //Instaciando a service fora pelo mesmo motivo Marcello Fontes 22/09/2023
+
+        let itemPedidoService = new ItemPedidoService(itemPedidoRepo);
+
+        //Loopa todos os produtos do pedido adiciona o id do pedido casdastrado Marcello Fontes 22/09/2023
+        createPedidoInput.itensDoPedido.forEach(function (item) {
+
+            //Pegao o pedido id de item a e vai adicioonado no input
+            item.pedidoId = lastPedidoId.id;
+
+            //Insere item pedido a tabela item pedido
+            itemPedidoService.createItemPedido(item);
+
+
+            // this.itemPedidoRepository.createItemPedido(item);
+        });
+
+        // console.log(createPedidoInput);
         return newPedido;
 
 

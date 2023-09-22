@@ -7,7 +7,7 @@ import { ProdutoModule } from "src/produto/produto.module";
 import { PedidoModule } from "src/pedido/pedido.module";
 
 @Module({
-    imports: [DatabaseModule,ProdutoModule,PedidoModule],
+    imports: [DatabaseModule,ProdutoModule],
     providers: [...itemPedidoProvider, ItemPedidoService,ItemPedidoResolver],
   })
 export class ItemPedidoModule{}

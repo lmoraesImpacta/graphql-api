@@ -26,7 +26,7 @@ import { ItemPedidoModule } from './itemPedido/itemPedido.module';
     UserModule,
     PedidoModule,
     ProdutoModule,
-    ItemPedidoModule
+    // ItemPedidoModule
   ],
 })
 export class AppModule {}
