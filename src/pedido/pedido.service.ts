@@ -52,6 +52,10 @@ export class PedidoService{
             // this.itemPedidoRepository.createItemPedido(item);
         });
 
+        let totalItensPedido = await itemPedidoService.calculaValorTotalPorPedido(lastPedidoId.id);
+
+        console.log(totalItensPedido);
+
         // console.log(createPedidoInput);
         return newPedido;
 

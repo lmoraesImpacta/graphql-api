@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, ConsoleLogger } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { ItemPedido } from './itemPedido.entity';
 import { CreateItemPedidoInput } from './dto/create-itemPedido.input';
@@ -21,6 +21,19 @@ export class ItemPedidoService{
         const newItemPedido = this.itemPedidoRepository.create(createItemPedidoInput);
 
         return this.itemPedidoRepository.save(newItemPedido);
+    }
+
+    async calculaValorTotalPorPedido(pedidoId: number){
+
+        try{
+            console.log(pedidoId);
+            let pernambuco = this.itemPedidoRepository.find({where:{pedidoId : 62}});
+            console.log(pernambuco);
+        }
+        catch(error){
+            console.log(error);
+        }
+
     }
 
     
