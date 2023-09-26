@@ -3,9 +3,10 @@ import { Repository } from "typeorm";
 import { Pedido } from "./pedido.entity";
 import { CreatePedidoInput } from "./dto/create-pedido.input";
 import { Produto } from "src/produto/produto.entity";
-import { CreateItensPedidoInput } from "./dto/create-itens-pedido.input";
-import { ItemPedidoService } from "src/itemPedido/itemPedido.service";
-import { ItemPedido } from "src/itemPedido/itemPedido.entity";
+// import { CreateItensPedidoInput } from "./dto/create-itens-pedido.input";
+// import { ItemPedidoService } from "src/itemPedido/itemPedido.service";
+import {  ItemPedido } from "src/itemPedido/itemPedido.entity";
+import { async } from "rxjs";
 
 @Injectable()
 export class PedidoService{
@@ -16,8 +17,10 @@ export class PedidoService{
         private pedidoRepository: Repository<Pedido>,
 
         @Inject('ITEM_PEDIDO_REPOSITORY')
-        private itemPedidoRepository: Repository<ItemPedido>
+        public itemPedidoRepository: Repository<ItemPedido>,
 
+        @Inject('PRODUTO_REPOSITORY')
+        private produtoRepository: Repository<Produto>
 
     ){}
 
@@ -25,40 +28,38 @@ export class PedidoService{
         return this.pedidoRepository.find();
     }
 
-    async createPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido>{
+     async createPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido>{
 
-        const newPedido = this.pedidoRepository.create(createPedidoInput);
+        //atualiza o pedido
+        // const newPedido =  await this.pedidoRepository.insert(createPedidoInput);
+        // console.log(newPedido);
+        const newPedido =   this.pedidoRepository.create(createPedidoInput);
 
-        //insere e pega o id inserido MArcello Fonte 19/09/2023
-        let lastPedidoId = (await this.pedidoRepository.insert(newPedido)).generatedMaps[0];
-
-        //Instanciando o item pedido repository fora por que dentro do foreach não cosnegui  Marcello Fontes 22/09/2023
-        let itemPedidoRepo = this.itemPedidoRepository;
-
-        //Instaciando a service fora pelo mesmo motivo Marcello Fontes 22/09/2023
-
-        let itemPedidoService = new ItemPedidoService(itemPedidoRepo);
-
-        //Loopa todos os produtos do pedido adiciona o id do pedido casdastrado Marcello Fontes 22/09/2023
-        createPedidoInput.itensDoPedido.forEach(function (item) {
+        console.log(newPedido);
+    //     //insere e pega o id inserido MArcello Fonte 19/09/2023
+        let lastPedidoId = (await this.pedidoRepository.insert(newPedido)).generatedMaps[0].id;
+    // let repository = this.itemPedidoRepository;
+    // //     //Loopa todos os produtos do pedido adiciona o id do pedido casdastrado Marcello Fontes 22/09/2023
+    // console.log(this.itemPedidoRepository);   
+    await  createPedidoInput.itensDoPedido.forEach( async function (item) {
 
             //Pegao o pedido id de item a e vai adicioonado no input
-            item.pedidoId = lastPedidoId.id;
+            item.pedidoId = lastPedidoId;
 
+            console.log(item.pedidoId);
             //Insere item pedido a tabela item pedido
-            itemPedidoService.createItemPedido(item);
 
-
-            // this.itemPedidoRepository.createItemPedido(item);
+        //    await  this.itemPedidoRepository.insert(item);
+        //    console.log(this.itemPedidoRepository);
         });
+        let pernambuco =  await this.itemPedidoRepository.find({where:{pedidoId : parseInt(lastPedidoId)}});
+    //     console.log(pernambuco);
 
-        let totalItensPedido = await itemPedidoService.calculaValorTotalPorPedido(lastPedidoId.id);
+    //     // parseInt(lastPedidoId.id)
 
-        console.log(totalItensPedido);
 
-        // console.log(createPedidoInput);
+    //     return newPedido;
         return newPedido;
-
 
 
     }

@@ -26,9 +26,13 @@ export class ItemPedidoService{
     async calculaValorTotalPorPedido(pedidoId: number){
 
         try{
+
             console.log(pedidoId);
-            let pernambuco = this.itemPedidoRepository.find({where:{pedidoId : 62}});
+            console.log(typeof(pedidoId));
+            // console.log()
+            let pernambuco = await this.itemPedidoRepository.find({where:{pedidoId : pedidoId}});
             console.log(pernambuco);
+            return pernambuco;
         }
         catch(error){
             console.log(error);
