@@ -17,7 +17,7 @@ export class PedidoService{
         private pedidoRepository: Repository<Pedido>,
 
         @Inject('ITEM_PEDIDO_REPOSITORY')
-        public itemPedidoRepository: Repository<ItemPedido>,
+        private itemPedidoRepository: Repository<ItemPedido>,
 
         @Inject('PRODUTO_REPOSITORY')
         private produtoRepository: Repository<Produto>
@@ -33,15 +33,16 @@ export class PedidoService{
         //atualiza o pedido
         // const newPedido =  await this.pedidoRepository.insert(createPedidoInput);
         // console.log(newPedido);
-        const newPedido =   this.pedidoRepository.create(createPedidoInput);
+        const newPedido =  await this.pedidoRepository.create(createPedidoInput);
 
         console.log(newPedido);
     //     //insere e pega o id inserido MArcello Fonte 19/09/2023
-        let lastPedidoId = (await this.pedidoRepository.insert(newPedido)).generatedMaps[0].id;
+    let lastPedidoId = (await this.pedidoRepository.insert(newPedido)).generatedMaps[0].id;
     // let repository = this.itemPedidoRepository;
     // //     //Loopa todos os produtos do pedido adiciona o id do pedido casdastrado Marcello Fontes 22/09/2023
-    // console.log(this.itemPedidoRepository);   
-    await  createPedidoInput.itensDoPedido.forEach( async function (item) {
+    // console.log(this.itemPedidoRepository);   7
+    let valorTotalProduto: number[];
+    await createPedidoInput.itensDoPedido.forEach( async  (item) => {
 
             //Pegao o pedido id de item a e vai adicioonado no input
             item.pedidoId = lastPedidoId;
@@ -49,11 +50,24 @@ export class PedidoService{
             console.log(item.pedidoId);
             //Insere item pedido a tabela item pedido
 
-        //    await  this.itemPedidoRepository.insert(item);
+           await this.itemPedidoRepository.save(item);
+
+           console.log( await this.itemPedidoRepository.find({order:{pedidoId: "DESC"}}))
+
+   
+        //    console.log(repository);
         //    console.log(this.itemPedidoRepository);
         });
-        let pernambuco =  await this.itemPedidoRepository.find({where:{pedidoId : parseInt(lastPedidoId)}});
-    //     console.log(pernambuco);
+
+
+        let pernambuco =  await this.itemPedidoRepository.find({where:{pedidoId :parseInt(lastPedidoId)}});
+        console.log(pernambuco);
+        // await this.itemPedidoRepository.save(teste);
+
+        // let newItemPedidoRepository = new Repository<ItemPedido>;
+        // console.log(typeof(lastPedidoId));
+        // let pernambuco =  await this.itemPedidoRepository.find({where:{pedidoId :parseInt(lastPedidoId)}});
+        // console.log(pernambuco);
 
     //     // parseInt(lastPedidoId.id)
 
