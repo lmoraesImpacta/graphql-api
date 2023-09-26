@@ -27,18 +27,11 @@ export class ProdutoService{
         await  this.produtoRepository.update(id,updateProdutoInput);
         
         return this.produtoRepository.findOneByOrFail({id});
-
     }
 
     async deleteProduto(id: number){
 
-
         await this.produtoRepository.delete(id);
-
-        //
-
-
-
 
     }
 

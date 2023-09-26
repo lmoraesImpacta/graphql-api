@@ -37,11 +37,30 @@ export class PedidoService{
         for await  (const item of createPedidoInput.itensDoPedido){
             item.pedidoId = lastPedidoId;
             await this.itemPedidoRepository.save(item);
+        }        
+
+        let itens =  await this.itemPedidoRepository.find({ where: {pedidoId :parseInt(lastPedidoId)} });
+        var total = 0;
+        for await  (const item of itens){
+            let produto = await this.produtoRepository.find({ where:{ id: item.produtoId }});
+            console.log(produto[0].value)
+            total = total + (produto[0].value * item.quantity);
+            console.log("TOTAL: " +total)
         }
 
-        let itens =  await this.itemPedidoRepository.find({where:{pedidoId :parseInt(lastPedidoId)}});
-        // console.log(itens);
-        return newPedido;
+        const updatePedido = await this.pedidoRepository.createQueryBuilder()
+            .update(Pedido)
+            .set({
+                total_Value: total
+            })
+            .where("id = :id", {id: lastPedidoId})
+            .execute()
+
+            console.log(updatePedido)
+
+        const pedidoConcluido = this.pedidoRepository.findOneByOrFail({id: lastPedidoId})
+
+        return pedidoConcluido;
 
     }
 
