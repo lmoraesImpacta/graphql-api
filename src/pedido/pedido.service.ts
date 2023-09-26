@@ -28,88 +28,21 @@ export class PedidoService{
         return this.pedidoRepository.find();
     }
 
-     async createPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido>{
+    async createPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido>{
 
-        //atualiza o pedido
-        // const newPedido =  await this.pedidoRepository.insert(createPedidoInput);
-        // console.log(newPedido);
         const newPedido =  await this.pedidoRepository.create(createPedidoInput);
 
-        console.log(newPedido);
-    //     //insere e pega o id inserido MArcello Fonte 19/09/2023
-    let lastPedidoId = (await this.pedidoRepository.insert(newPedido)).generatedMaps[0].id;
-    // let repository = this.itemPedidoRepository;
-    // //     //Loopa todos os produtos do pedido adiciona o id do pedido casdastrado Marcello Fontes 22/09/2023
-    // console.log(this.itemPedidoRepository);   7
-    let valorTotalProduto: number[];
-    await createPedidoInput.itensDoPedido.forEach( async  (item) => {
+        let lastPedidoId = (await this.pedidoRepository.insert(newPedido)).generatedMaps[0].id;
 
-            //Pegao o pedido id de item a e vai adicioonado no input
+        for await  (const item of createPedidoInput.itensDoPedido){
             item.pedidoId = lastPedidoId;
+            await this.itemPedidoRepository.save(item);
+        }
 
-            console.log(item.pedidoId);
-            //Insere item pedido a tabela item pedido
-
-           await this.itemPedidoRepository.save(item);
-
-           console.log( await this.itemPedidoRepository.find({order:{pedidoId: "DESC"}}))
-
-   
-        //    console.log(repository);
-        //    console.log(this.itemPedidoRepository);
-        });
-
-
-        let pernambuco =  await this.itemPedidoRepository.find({where:{pedidoId :parseInt(lastPedidoId)}});
-        console.log(pernambuco);
-        // await this.itemPedidoRepository.save(teste);
-
-        // let newItemPedidoRepository = new Repository<ItemPedido>;
-        // console.log(typeof(lastPedidoId));
-        // let pernambuco =  await this.itemPedidoRepository.find({where:{pedidoId :parseInt(lastPedidoId)}});
-        // console.log(pernambuco);
-
-    //     // parseInt(lastPedidoId.id)
-
-
-    //     return newPedido;
+        let itens =  await this.itemPedidoRepository.find({where:{pedidoId :parseInt(lastPedidoId)}});
+        // console.log(itens);
         return newPedido;
 
-
     }
-
-    // async adicionaItemAoPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido>{
-    //     const  newPedido = this.pedidoRepository.create(createPedidoInput);
-
-    //     const itemPedido = idProd Qtd, idPedido
-
-    //     const
-
-    //     const data = [createPedidoInput.userId]
-
-    //     const produtos = this.produtoRepository.query('SELECT * FROM  WHERE produtoId IN '  data)
-    //     /*
-
-    //      {
-    //         usrId 123
-    //         dtInsert 1212
-    //         produto{
-    //             {
-    //                 id3:
-    //                 qtd: 3
-    //             }
-    //             {
-    //                 id4:
-    //                 qtd: 4
-    //             }
-    //         }
-    //      }
-    //     */
-    //     return this.pedidoRepository.save(newPedido);
-    // }
-
-
-    // updateServico
-
 
 }
