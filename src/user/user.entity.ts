@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { BeforeInsert, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { hash } from "bcryptjs";
 import { Pedido } from 'src/pedido/pedido.entity';
 
@@ -51,9 +51,14 @@ export class User{
     pedidos?: Pedido[];
 
     @BeforeInsert()
+    @BeforeUpdate()
     public async hashPassword() {
       this.password = await hash(this.password, 10);
     }
 
+
+    // public async hashPassword() {
+    //     this.password = await hash(this.password, 10);
+    //   }
 
 }
