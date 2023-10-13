@@ -43,11 +43,8 @@ export class PedidoService{
         var total = 0;
         for await  (const item of itens){
             let produto = await this.produtoRepository.find({ where:{ id: item.produtoId }});
-            console.log(produto[0].value)
             total = total + (produto[0].value * item.quantity);
-            console.log("TOTAL: " +total)
         }
-
         const updatePedido = await this.pedidoRepository.createQueryBuilder()
             .update(Pedido)
             .set({
@@ -55,9 +52,6 @@ export class PedidoService{
             })
             .where("id = :id", {id: lastPedidoId})
             .execute()
-
-            console.log(updatePedido)
-
         const pedidoConcluido = this.pedidoRepository.findOneByOrFail({id: lastPedidoId})
 
         return pedidoConcluido;
