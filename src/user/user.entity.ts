@@ -50,15 +50,4 @@ export class User{
     @Field(type => [Pedido], {nullable: true})
     pedidos?: Pedido[];
 
-    @BeforeInsert()
-    @BeforeUpdate()
-    public async hashPassword() {
-      this.password = await hash(this.password, 10);
-    }
-
-
-    // public async hashPassword() {
-    //     this.password = await hash(this.password, 10);
-    //   }
-
 }
