@@ -43,7 +43,7 @@ export class User{
         unique: false,
         nullable: false,
     })
-    @Field()
+    @Field(type => Int)
     active: number;
 
     @OneToMany(() => Pedido, pedido => pedido.user)
