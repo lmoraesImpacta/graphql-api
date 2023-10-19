@@ -52,7 +52,7 @@ type User {
   name: String!
   email: String!
   password: String!
-  active: Float!
+  active: Int!
   pedidos: [Pedido!]
 }
 

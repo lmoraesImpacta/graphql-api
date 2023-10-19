@@ -16,21 +16,6 @@ export class ItemPedido{
     @Field(type => Int)
     quantity: number;
     
-    // @Column({
-    //     type: "float",
-    //     unique: false,
-    //     nullable: true
-    // })
-    // @Field()
-    // totalValue: number;
-
-    // @Column({
-    //     type: "float",
-    //     unique: false,
-    //     nullable: true
-    // })
-    // @Field()
-    // uniqueValue: number;
 
     @Column()
     @Field(type => Int)
