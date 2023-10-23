@@ -10,7 +10,7 @@ export class CreatePedidoInput{
     dt_Insert: Date;
 
     @Field(type=> Int)
-    userId: number;
+    user_id: number;
 
     @Field(() => [ItemPedidoInputTeste])
     itensDoPedido: ItemPedidoInputTeste[]
