@@ -37,7 +37,7 @@ type Pedido {
   id: Int!
   dt_Insert: DateTime!
   total_Value: Float!
-  userId: Int!
+  user_id: Int!
   user: User!
   ItensPedido: [ItemPedido!]
 }
@@ -73,7 +73,7 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(id: Int!, updateUserInput: UpdateUserInput!): User!
   deleteUser(id: Int!, deleteUserInput: DeleteUserInput!): User!
-  createPedido(createPedidoInput: CreatePedidoInput!): Pedido!
+  createPedido(createPedidoInput: CreatePedidoInput!): [Pedido!]!
   createItemPedido(createItemPedidoInput: CreateItemPedidoInput!): ItemPedido!
   createProduto(createProdutoInput: CreateProdutoInput!): Produto!
   updateProduto(id: Int!, updateProdutoInput: UpdateProdutoInput!): Produto!
@@ -113,7 +113,7 @@ input DeleteUserInput {
 
 input CreatePedidoInput {
   dt_Insert: DateTime!
-  userId: Int!
+  user_id: Int!
   itensDoPedido: [ItemPedidoInputTeste!]!
 }
 

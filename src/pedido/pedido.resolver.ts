@@ -15,11 +15,11 @@ export class PedidoResolver{
     }
 
 
-    @Mutation(returns => Pedido)
+    @Mutation(returns => [Pedido])
     createPedido(
         @Args('createPedidoInput')createPedidoInput: CreatePedidoInput,
         // @Args('createItensPedidoInput')createItensPedidoInput: CreateItensPedidoInput)
-        ): Promise<Pedido>{
+        ): Promise<Pedido[]>{
         return this.pedidoService.createPedido(createPedidoInput);
     }
 

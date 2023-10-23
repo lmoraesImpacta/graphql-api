@@ -25,10 +25,14 @@ export class PedidoService{
     ){}
 
     async findAll(): Promise<Pedido[]>{
-        return this.pedidoRepository.find();
+
+        const teste =  await this.pedidoRepository.find({relations: {ItensPedido: true}});
+
+        console.log(teste);
+        return teste;
     }
 
-    async createPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido>{
+    async createPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido[]>{
 
         const newPedido =  await this.pedidoRepository.create(createPedidoInput);
 
@@ -52,7 +56,8 @@ export class PedidoService{
             })
             .where("id = :id", {id: lastPedidoId})
             .execute()
-        const pedidoConcluido = this.pedidoRepository.findOneByOrFail({id: lastPedidoId})
+        const pedidoConcluido = this.pedidoRepository.find({relations: {ItensPedido: true}, where:{id: lastPedidoId}})
+
 
         return pedidoConcluido;
 

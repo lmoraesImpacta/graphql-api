@@ -31,7 +31,7 @@ export class Pedido{
 
     @Column()
     @Field(type => Int)
-    userId: number;
+    user_id: number;
     
     @ManyToOne(() => User, user => user.pedidos)
     @Field(type => User)
@@ -40,5 +40,7 @@ export class Pedido{
     @OneToMany(() => ItemPedido, itemPedido => itemPedido.pedido)
     @Field(type => [ItemPedido], {nullable: true})
     ItensPedido?: ItemPedido[];
+
+    
 
 }
