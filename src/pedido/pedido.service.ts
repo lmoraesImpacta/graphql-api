@@ -28,7 +28,6 @@ export class PedidoService{
 
         const teste =  await this.pedidoRepository.find({relations: {ItensPedido: true}});
 
-        console.log(teste);
         return teste;
     }
 

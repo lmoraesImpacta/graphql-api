@@ -29,10 +29,11 @@ export class ProdutoService{
         return this.produtoRepository.findOneByOrFail({id});
     }
 
-    async deleteProduto(id: number){
-
-        await this.produtoRepository.delete(id);
-
+    async deleteProduto(id: number): Promise<Produto[]> {
+        const deleteProduto = await this.produtoRepository.delete(id);
+        const produto =  await this.produtoRepository.find();
+        return produto;
+ 
     }
 
 

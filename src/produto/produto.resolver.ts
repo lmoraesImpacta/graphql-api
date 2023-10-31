@@ -28,10 +28,10 @@ export class ProdutoResolver{
     
     }
 
-    @Mutation(returns => Produto)
+    @Mutation(returns => [Produto])
     deleteProduto(
             @Args('id', {type: () => Int}) id: number,
-        ){
+        ):Promise<Produto[]>{
             return this.produtoService.deleteProduto(id);
         }
 
