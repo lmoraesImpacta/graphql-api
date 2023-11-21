@@ -1,0 +1,26 @@
+usuario/cliente
+	id
+	name
+	email
+	password
+	active
+pedido
+	id
+	dt_Insert
+	dt_Conclusion
+	total_Value
+	userId
+itemPedido
+	sk_Id_Item_Pedido
+	pedido_Id
+	product_Id
+	quantity
+	total_Value
+produto
+	id
+	name
+	description
+	value
+	active
+
+	https://docs.google.com/spreadsheets/d/1iw5tBWWgHLSDIltv0cSAZELFpIV0xf2DiOzUETT3QQU/edit?usp=sharing

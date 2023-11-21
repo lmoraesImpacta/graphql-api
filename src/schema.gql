@@ -1,0 +1,144 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Owner {
+  id: Int!
+  name: String!
+  pets: [Pet!]
+}
+
+type Pet {
+  id: Int!
+  name: String!
+  type: String
+  ownerId: Int!
+  owner: Owner!
+}
+
+type Produto {
+  id: Int!
+  name: String!
+  description: String!
+  value: Float!
+  ItensPedido: [ItemPedido!]
+}
+
+type ItemPedido {
+  id: Int!
+  quantity: Int!
+  pedidoId: Int!
+  pedido: Pedido!
+  produtoId: Int!
+  produto: Produto!
+}
+
+type Pedido {
+  id: Int!
+  dt_Insert: DateTime!
+  total_Value: Float!
+  user_id: Int!
+  user: User!
+  ItensPedido: [ItemPedido!]
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: Int!
+  name: String!
+  email: String!
+  password: String!
+  active: Int!
+  pedidos: [Pedido!]
+}
+
+type Query {
+  pets: [Pet!]!
+  getPet(id: Int!): Pet!
+  owners: [Owner!]!
+  owner(id: Int!): Owner!
+  users: [User!]!
+  pedidos: [Pedido!]!
+  itemPedidos: [ItemPedido!]!
+  produtos: [Produto!]!
+}
+
+type Mutation {
+  createPet(createPetInput: CreatePetInput!): Pet!
+  createOwner(createOwnerInput: CreateOwnerInput!): Owner!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(id: Int!, updateUserInput: UpdateUserInput!): User!
+  deleteUser(id: Int!, deleteUserInput: DeleteUserInput!): User!
+  createPedido(createPedidoInput: CreatePedidoInput!): [Pedido!]!
+  createItemPedido(createItemPedidoInput: CreateItemPedidoInput!): ItemPedido!
+  createProduto(createProdutoInput: CreateProdutoInput!): Produto!
+  updateProduto(id: Int!, updateProdutoInput: UpdateProdutoInput!): Produto!
+  deleteProduto(id: Int!): [Produto!]!
+}
+
+input CreatePetInput {
+  name: String!
+  type: String
+  ownerId: Int!
+}
+
+input CreateOwnerInput {
+  name: String!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  active: Int!
+}
+
+input UpdateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  active: Int
+}
+
+input DeleteUserInput {
+  name: String
+  email: String
+  password: String
+  active: Int!
+}
+
+input CreatePedidoInput {
+  dt_Insert: DateTime!
+  user_id: Int!
+  itensDoPedido: [ItemPedidoInputTeste!]!
+}
+
+input ItemPedidoInputTeste {
+  pedidoId: Int!
+  produtoId: Int!
+  quantity: Int!
+}
+
+input CreateItemPedidoInput {
+  quantity: Int!
+  totalValue: Float!
+  uniqueValue: Float!
+  pedidoId: Int!
+  produtoId: Int!
+}
+
+input CreateProdutoInput {
+  name: String!
+  description: String!
+  value: Float!
+}
+
+input UpdateProdutoInput {
+  name: String!
+  description: String!
+  value: Float!
+}
